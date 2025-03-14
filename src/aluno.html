@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Nota do Aluno</title>
+    <style>
+        body {
+            font-family: 'Fira Code', monospace;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 relative text-gray-200 flex flex-col items-center justify-center min-h-screen px-4 w-3/5 mx-auto">
+    <a href="home.html" class="absolute top-4 left-2 bg-teal-500 text-gray-900 font-medium px-3 py-1 rounded-lg text-sm shadow">Voltar</a>
+    <h1 class="text-3xl md:text-4xl font-bold text-center text-teal-400 mb-8">
+        Calcular a Média do Aluno
+    </h1>
+    <div class="flex flex-wrap justify-center gap-6 w-full">
+        <div class="relative bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-teal-400/50 transition-shadow w-full text-center">
+            <div class="my-8">
+                <div class="w-3/5 mx-auto space-y-4">
+                    <div class="grid grid-cols-8 gap-4 items-center">
+                        <label class="self-center text-right col-span-4">Nota de Laboratório:</label>
+                        <input name="laboratorio" type="number" min="0"  max="10" class="col-span-4 bg-gray-700 p-2 rounded-lg mt-2" placeholder="Ex: 9">
+                    </div>
+                    <div class="grid grid-cols-8 gap-4 items-center">
+                        <label class="self-center text-right col-span-4">Nota da Prova:</label>
+                        <input name="prova" type="number" min="0"  max="10" class="col-span-4 bg-gray-700 p-2 rounded-lg mt-2" placeholder="Ex: 10">
+                    </div>
+                    <div class="grid grid-cols-8 gap-4 items-center">
+                        <label class="self-center text-right col-span-4">Nota do Trabalho:</label>
+                        <input name="trabalho" type="number" min="0"  max="10" class="col-span-4 bg-gray-700 p-2 rounded-lg mt-2" placeholder="Ex: 6.5">
+                    </div>        
+                </div>
+                <button onclick="calcularNota()" class="inline-block mt-4 px-4 py-2 bg-teal-500 text-gray-900 font-medium rounded-lg shadow hover:bg-teal-400 transition">Calcular Nota</button>
+                
+                <!-- Resultado -->
+                <div id="container-resultado" class="space-y-3 mx-auto my-6 bg-gray-800 p-4 rounded-lg shadow-lg border border-teal-500 hidden">
+                    <h2 class="text-2xl font-bold text-teal-300 text-center">Resultado</h2>
+                    <div class="">
+                        <span id="final" class="col-span-1 text-right font-bold text-lg text-teal-300"></span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="text-center py-6">
+        <p>By: Pedro Henrique Vaz Silva Alves</p>
+        <p>Aluno da Fatec São José dos Campos</p>
+        <p>2º DSM</p>
+    </div>
+    <script>
+        function calcularNota() {
+            let laboratorio = parseFloat(document.querySelector('input[name="laboratorio"]').value);
+            let prova = parseFloat(document.querySelector('input[name="prova"]').value);
+            let trabalho = parseFloat(document.querySelector('input[name="trabalho"]').value);
+            
+
+            if (isNaN(laboratorio) || isNaN(prova) || isNaN(trabalho)) {
+                alert("Preencha todos os campos corretamente!");
+                return;
+            }
+
+            let {media, categoria} = calcularMediaPonderada(laboratorio, prova, trabalho);
+
+            let resultado = `A média do aluno é = ${media.toFixed(1)} e a sua classificação é ${categoria}`
+            document.getElementById('final').innerText = resultado;
+            
+            document.getElementById('container-resultado').classList.remove('hidden');
+        }
+
+        function calcularMediaPonderada(laboratorio, prova, trabalho) {
+            let media = calcularMedia(laboratorio, prova, trabalho);
+            let categoria = pegarCategoria(media);
+            return {media, categoria};
+        }
+
+        function calcularMedia(laboratorio, prova, trabalho) {
+            return laboratorio * 0.2 + prova * 0.5 + trabalho * 0.3
+        }
+
+        function pegarCategoria(media) {
+            if (media <= 5) {
+                return 'F'
+            } else if (media <= 6) {
+                 return 'E'
+            }  else if (media <= 7) {
+                 return 'D'
+            }  else if (media <= 8) {
+                 return 'C'
+            }  else if (media <= 9) {
+                 return 'B'
+            } else {
+                return 'A'
+            }
+        }
+
+
+
+    </script>
+</body>
+</html>

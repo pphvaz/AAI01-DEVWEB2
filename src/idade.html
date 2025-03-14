@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Idade</title>
+    <style>
+        body {
+            font-family: 'Fira Code', monospace;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 relative text-gray-200 flex flex-col items-center justify-center min-h-screen px-4 w-3/5 mx-auto">
+    <a href="home.html" class="absolute top-4 left-2 bg-teal-500 text-gray-900 font-medium px-3 py-1 rounded-lg text-sm shadow">Voltar</a>
+    <h1 class="text-3xl md:text-4xl font-bold text-center text-teal-400 mb-8">
+        Adicionar pessoas pela idade
+    </h1>
+    <div class="flex flex-wrap justify-center gap-6 w-full">
+        <div class="relative bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-teal-400/50 transition-shadow w-full text-center">
+            <div class="my-8">
+                <div class="w-3/5 mx-auto space-y-4">
+                    <div class="grid grid-cols-4 gap-4 items-center">
+                        <label class="col-span-1">Idade da Pessoa:</label>
+                        <input name="idade" type="number" min="0" class="col-span-3 bg-gray-700 p-2 rounded-lg mt-2" placeholder="Ex: 20">
+                    </div>
+                </div>
+                <button onclick="adicionar()" class="inline-block mt-4 px-4 py-2 bg-teal-500 text-gray-900 font-medium rounded-lg shadow hover:bg-teal-400 transition">Adicionar</button>
+                
+                <!-- Resultado do IMC -->
+                <p id="resultado" class="mt-4 text-lg text-teal-400"></p>
+                <div class="space-y-2 w-3/5 mx-auto">
+                    <h2 class="text-xl font-semibold text-teal-300">Distribuição de Idades</h2>
+                    <div class="grid grid-cols-2">
+                        <span class="col-span-1 text-right">Crianças (0-11): </span>
+                        <span class="col-span-1 text-left pl-3" id="criancas">0</span>
+                    </div>
+                    <div class="grid grid-cols-2">
+                        <span class="col-span-1 text-right">Adolescentes (12-17): </span>
+                        <span class="col-span-1 text-left pl-3" id="adolescentes">0</span>
+                    </div>
+                    <div class="grid grid-cols-2">
+                        <span class="col-span-1 text-right">Adultos (18-59): </span>
+                        <span class="col-span-1 text-left pl-3" id="adultos">0</span>
+                    </div>
+                    <div class="grid grid-cols-2">
+                        <span class="col-span-1 text-right">Idosos (60+): </span>
+                        <span class="col-span-1 text-left pl-3" id="idosos">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="text-center py-6">
+        <p>By: Pedro Henrique Vaz Silva Alves</p>
+        <p>Aluno da Fatec São José dos Campos</p>
+        <p>2º DSM</p>
+    </div>
+    <script>
+        function adicionar() {
+            let idade = document.querySelector('input[name="idade"]').value;
+            let criancas = document.querySelector('#criancas');
+            let adolescentes = document.querySelector('#adolescentes');
+            let adultos = document.querySelector('#adultos');
+            let idosos = document.querySelector('#idosos');
+
+            if (idade >= 0 && idade <= 11) {
+                criancas.textContent = parseInt(criancas.textContent) + 1;
+            } else if (idade >= 12 && idade <= 17) {
+                adolescentes.textContent = parseInt(adolescentes.textContent) + 1;
+            } else if (idade >= 18 && idade <= 59) {
+                adultos.textContent = parseInt(adultos.textContent) + 1;
+            } else {
+                idosos.textContent = parseInt(idosos.textContent) + 1;
+            }
+            // Limpa o campo de idade
+            document.querySelector('input[name="idade"]').value = "";
+        }
+    </script>
+</body>
+</html>

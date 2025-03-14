@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>IMC</title>
+    <style>
+        body {
+            font-family: 'Fira Code', monospace;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 relative text-gray-200 flex flex-col items-center justify-center min-h-screen px-4 w-3/5 mx-auto">
+    <a href="home.html" class="absolute top-4 left-2 bg-teal-500 text-gray-900 font-medium px-3 py-1 rounded-lg text-sm shadow">Voltar</a>
+    <h1 class="text-3xl md:text-4xl font-bold text-center text-teal-400 mb-8">
+        Calculando o IMC
+    </h1>
+    <div class="flex flex-wrap justify-center gap-6 w-full">
+        <div class="relative bg-gray-800 p-6 rounded-xl shadow-lg hover:shadow-teal-400/50 transition-shadow w-full text-center">
+            <div class="my-8">
+                <div class="w-3/5 mx-auto space-y-4">
+                    <div class="grid grid-cols-4 gap-4 items-center">
+                        <label class="col-span-1">Altura</label>
+                        <input name="altura" type="text" class="col-span-3 bg-gray-700 p-2 rounded-lg mt-2" placeholder="Ex: 1.75">
+                    </div>
+                    <div class="grid grid-cols-4 gap-4 items-center">
+                        <label class="col-span-1">Peso</label>
+                        <input name="peso" type="text" class="col-span-3 bg-gray-700 p-2 rounded-lg mt-2" placeholder="Ex: 70">
+                    </div>
+                </div>
+                <button onclick="calcularImc()" class="inline-block mt-4 px-4 py-2 bg-teal-500 text-gray-900 font-medium rounded-lg shadow hover:bg-teal-400 transition">Calcular</button>
+                
+                <!-- Resultado do IMC -->
+                <p id="resultado" class="mt-4 text-lg text-teal-400"></p>
+            </div>
+        </div>
+    </div>
+    <div class="text-center py-6">
+        <p>By: Pedro Henrique Vaz Silva Alves</p>
+        <p>Aluno da Fatec São José dos Campos</p>
+        <p>2º DSM</p>
+    </div>
+    <script>
+        function mostrarImc(imc) {
+            let classificacao = "";
+
+            if (imc < 16) {
+                classificacao = 'Baixo peso muito grave';
+            } else if (imc < 16.99) {
+                classificacao = 'Baixo peso grave';
+            } else if (imc < 18.49) {
+                classificacao = 'Baixo peso';
+            } else if (imc < 24.99) {
+                classificacao = 'Peso normal';
+            } else if (imc < 29.99) {
+                classificacao = 'Sobrepeso';
+            } else if (imc < 34.99) {
+                classificacao = 'Obesidade grau I';
+            } else if (imc < 39.99) {
+                classificacao = 'Obesidade grau II';
+            } else {
+                classificacao = 'Obesidade grau III';
+            }
+
+            document.getElementById("resultado").innerText = `Seu IMC é ${imc.toFixed(2)} - ${classificacao}`;
+        }
+
+        function calcularImc() {
+            const altura = parseFloat(document.querySelector('input[name="altura"]').value);
+            const peso = parseFloat(document.querySelector('input[name="peso"]').value);
+
+            if (isNaN(altura) || isNaN(peso) || altura <= 0 || peso <= 0) {
+                document.getElementById("resultado").innerText = "Por favor, insira valores válidos!";
+                return;
+            }
+
+            const imc = peso / (altura * altura);
+            mostrarImc(imc);
+        }
+    </script>
+</body>
+</html>
